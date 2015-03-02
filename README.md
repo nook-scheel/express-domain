@@ -9,9 +9,8 @@ Asynchronous error handler for Express
 # Usage
 
 ```js
-var
-	express = require('express'),
-	expressDomain = require('express-domain');
+var express = require('express')
+  , expressDomain = require('express-domain');
 
 var app = express()
   .use(connectDomain())
