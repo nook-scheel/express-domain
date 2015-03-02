@@ -1,5 +1,5 @@
 {
-  "name" : "connect-domain",
+  "name" : "express-domain",
   "version" : "1.0.0",
   "description" : "Asynchronous error handler for Express",
   "keywords": [ "domain", "error", "express" ],
