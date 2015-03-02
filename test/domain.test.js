@@ -1,19 +1,12 @@
-/*!
- * connect-domain - test/domian.test.js
- * Copyright(c) 2012 fengmk2 <fengmk2@gmail.com>
- * MIT Licensed
- */
-
-"use strict";
 
 /**
  * Module dependencies.
  */
 
-var connect = require('connect');
-var connectDomain = require('../');
-var should = require('should');
-var request = require('supertest');
+var express = require('express')
+  , expressDomain = require('../')
+  , should = require('should')
+  , request = require('supertest');
 
 describe('domain.test.js', function () {
   var normalHandler = function normalHandler(req, res, next) {
@@ -26,15 +19,6 @@ describe('domain.test.js', function () {
       });
       return;
     }
-    if (req.url === '/async_error_twice') {
-      setTimeout(function () {
-        ff.foo();
-      }, 100);
-      setTimeout(function () {
-        bar.bar();
-      }, 210);
-      return;
-    }
     res.end(req.url);
   };
 
@@ -43,51 +27,29 @@ describe('domain.test.js', function () {
     res.end(err.message);
   };
 
-  var app = connect()
-  .use(connectDomain())
-  .use(normalHandler)
-  .use(errorHandler);
+  var app = express()
+    .use(expressDomain())
+    .use(normalHandler)
+    .use(errorHandler);
 
   it('should GET / status 200', function (done) {
     request(app)
-    .get('/')
-    .expect(200, done);
+      .get('/')
+      .expect(200, done);
   });
 
   it('should GET /sync_error status 500', function (done) {
     request(app)
-    .get('/sync_error')
-    .expect('sync_error')
-    .expect(500, done);
+      .get('/sync_error')
+      .expect('sync_error')
+      .expect(500, done);
   });
 
-  describe('hack for async error', function () {
-    // Because `domain` will still throw `uncaughtException`, we need to hack for `mocha` test.
-    // https://github.com/joyent/node/issues/4375
-    // https://gist.github.com/4179636
-    var mochaHandler;
-    before(function () {
-      mochaHandler = process.listeners('uncaughtException').pop();
-    });
-    after(function (done) {
-      // ...but be sure to re-enable mocha's error handler
-      process.on('uncaughtException', mochaHandler);
-      setTimeout(done, 500);
-    });
-
-    it('should GET /async_error status 500', function (done) {
-      request(app)
+  it('should GET /async_error status 500', function (done) {
+    request(app)
       .get('/async_error')
       .expect('ff is not defined')
       .expect(500, done);
-    });
-
-    it('should GET /async_error_twice status 500', function (done) {
-      request(app)
-      .get('/async_error_twice')
-      .expect('ff is not defined')
-      .expect(500, done);
-    });
   });
 
 });
