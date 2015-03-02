@@ -1,6 +1,6 @@
 {
   "name" : "express-domain",
-  "version" : "1.0.1",
+  "version" : "1.0.2",
   "description" : "Asynchronous error handler for Express",
   "keywords": [ "domain", "error", "express" ],
   "author" : "Nook Scheel <nook@live.ru>",

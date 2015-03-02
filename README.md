@@ -1,6 +1,6 @@
 # About 
 
-Asynchronous error handler for Connect
+Asynchronous error handler for Express
 
 # Installation
 
