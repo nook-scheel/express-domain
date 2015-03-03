@@ -1,14 +1,11 @@
 {
   "name" : "express-domain",
-  "version" : "1.0.3",
+  "version" : "1.0.4",
   "description" : "Asynchronous error handler for Express",
   "keywords": [ "domain", "error", "express" ],
   "author" : "Nook Scheel <nook@live.ru>",
   "main" : "index",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/nooks/express-domain.git"
-  },
+  "repository": "nooks/express-domain",
   "devDependencies": {
     "should": "*",
     "express": "*",
