@@ -13,7 +13,7 @@ var express = require('express')
   , expressDomain = require('express-domain');
 
 var app = express()
-  .use(connectDomain())
+  .use(expressDomain())
   .use(function(req, res){
     if (Math.random() > 0.5) {
       throw new Error('Simple error');
